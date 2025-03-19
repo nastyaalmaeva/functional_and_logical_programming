@@ -21,10 +21,8 @@ let cylinderVolume radius height=
     (circleArea radius) * height
 
 let rec sumOfDigitsUp number =
-    if number = 0 then
-        0
-    else
-        (number % 10) + sumOfDigitsUp (number / 10)
+    if number = 0 then 0
+    else (number % 10) + sumOfDigitsUp (number / 10)
 
 let rec sumOfDigitsDown number =
     let rec sumDigitsDownLoop number currentSum =
@@ -41,5 +39,6 @@ let rec sumOfDigitsDown number =
 let main argv =
     Console.Write("Enter number: ")
     let number = Console.ReadLine() |> int
-    Console.WriteLine($"Sum of digits: {sumOfDigitsDown number}")
+    Console.WriteLine($"Sum of digits (used upward recursion): {sumOfDigitsUp number}")
+    Console.WriteLine($"Sum of digits (used downward recursion): {sumOfDigitsDown number}")
     0
