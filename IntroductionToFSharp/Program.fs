@@ -20,12 +20,16 @@ let circleArea radius =
 let cylinderVolume radius height=
     (circleArea radius) * height
 
+let rec sumOfDigitsUp number =
+    if number = 0 then
+        0
+    else
+        (number % 10) + sumOfDigitsUp (number / 10)
+
 
 [<EntryPoint>]
 let main argv =
-    Console.Write("Enter radius: ")
-    let radius = Console.ReadLine() |> float
-    Console.Write("Enter height: ")
-    let height = Console.ReadLine() |> float
-    Console.WriteLine($"Cylinder volume: {cylinderVolume radius height}")
+    Console.Write("Enter number: ")
+    let number = Console.ReadLine() |> int
+    Console.WriteLine($"Sum of digits: {sumOfDigitsUp number}")
     0
