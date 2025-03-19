@@ -14,12 +14,21 @@ let solve a b c =
         if D < 0.0 then None
         else Quadratic((((-b + sqrt(D)) / (2.0 * a)), ((-b - sqrt(D)) / (2.0 * a))))
 
+let circleArea radius =
+    Math.PI * Math.Pow(radius, 2)
+
+let multiplyAreaHeight area height =
+    area * height
+
+let cylinderVolume =
+    circleArea >> multiplyAreaHeight
+
 
 [<EntryPoint>]
 let main argv =
-    let result = solve 1.0 -2.0 1.0
-    match result with
-        None -> Console.WriteLine("There are no solutions.")
-        | Linear(x) -> Console.WriteLine($"Linear equation: {x}.")
-        | Quadratic(x1, x2) -> Console.WriteLine($"Quadratic equation: {x1}, {x2}.")
+    Console.Write("Enter radius: ")
+    let radius = Console.ReadLine() |> float
+    Console.Write("Enter height: ")
+    let height = Console.ReadLine() |> float
+    Console.WriteLine($"Cylinder volume: {cylinderVolume radius height}")
     0
