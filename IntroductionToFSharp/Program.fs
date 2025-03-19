@@ -26,10 +26,20 @@ let rec sumOfDigitsUp number =
     else
         (number % 10) + sumOfDigitsUp (number / 10)
 
+let rec sumOfDigitsDown number =
+    let rec sumDigitsDownLoop number currentSum =
+        if number = 0 then currentSum
+        else
+            let newNumber = number / 10
+            let digit = number % 10
+            let newSum = currentSum + digit
+            sumDigitsDownLoop newNumber newSum
+    sumDigitsDownLoop number 0
+
 
 [<EntryPoint>]
 let main argv =
     Console.Write("Enter number: ")
     let number = Console.ReadLine() |> int
-    Console.WriteLine($"Sum of digits: {sumOfDigitsUp number}")
+    Console.WriteLine($"Sum of digits: {sumOfDigitsDown number}")
     0
