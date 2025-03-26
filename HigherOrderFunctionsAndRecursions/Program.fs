@@ -44,17 +44,19 @@ let rec numberTraversalWithCondition num (func :int->int->int) acc (condition :i
                 | false -> numberTraversalWithCondition nextNumber func acc condition
                 | true -> numberTraversalWithCondition nextNumber func (func acc digit) condition
 
+let favouriteProgrammingLanguage language =
+    match language with
+        | "F#" | "Prolog" -> "Sneaky one..."
+        | "C++" -> "You are good programmer!"
+        | "C#" -> "You are genius programmer"
+        | "Python" -> "Are you ok?"
+        | "R" -> "Oh..Big Data lover..."
+        | "Java" -> "GOOD ONE"
+        | _ -> "Don't know that one..."
+
 [<EntryPoint>]
 let main argv =
-    Console.WriteLine($"Sum of digits: {fibOrSumOfDigits true 15}")
-    Console.WriteLine($"15th term in Fibonacci sequence: {fibOrSumOfDigits false 15}")
-    Console.WriteLine()
-    Console.WriteLine($"Sum of digits of number: {numberTraversal 124 (fun x y -> (x + y)) 0}")
-    Console.WriteLine($"Mul of digits of number: {numberTraversal 124 (fun x y -> (x * y)) 1}")
-    Console.WriteLine($"Minimum digit of number: {numberTraversal 421 (fun x y -> if x > y then y else x) 10}")
-    Console.WriteLine($"Maximum digit of number: {numberTraversal 421 (fun x y -> if x < y then y else x) -1}")
-    Console.WriteLine()
-    Console.WriteLine($"Sum of even digits of number: {numberTraversalWithCondition 4561 (fun x y -> (x + y)) 0 (fun digit -> digit % 2 = 0)}")
-    Console.WriteLine($"Mul of digits larger than 3: {numberTraversalWithCondition 4562 (fun x y -> (x * y)) 1 (fun digit -> digit > 3)}")
-    Console.WriteLine($"Minimum odd digit of number: {numberTraversalWithCondition 4562 (fun x y -> if x > y then y else x) 10 (fun digit -> digit % 2 <> 0)}")
+    Console.WriteLine("What is your favorite programming language?")
+    let answer = Console.ReadLine() |> string
+    Console.WriteLine(favouriteProgrammingLanguage answer)
     0   
