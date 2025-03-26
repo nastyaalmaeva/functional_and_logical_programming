@@ -28,8 +28,13 @@ let fibOrSumOfDigits flag =
         | true -> sumOfDigitsDown
         | false -> fibonacciDown
 
+let rec numberTraversal num (func :int->int->int) acc = 
+     match num with
+        | 0 -> acc
+        | n -> numberTraversal (n / 10) func (func acc (n % 10))
+
 [<EntryPoint>]
 let main argv =
-    Console.WriteLine(fibOrSumOfDigits false 15)
-    Console.WriteLine(fibOrSumOfDigits true 15)
+    Console.WriteLine($"Sum of digits: {fibOrSumOfDigits true 15}")
+    Console.WriteLine($"15th term in Fibonacci sequence: {fibOrSumOfDigits false 15}")
     0
