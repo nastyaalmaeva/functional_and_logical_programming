@@ -111,10 +111,20 @@ let sumPrimeDivisors n =
             loop (divisor + 1) newAcc
     if n < 2 then 0 else loop 2 0
 
+let countOddDigitsGreaterThanThree n =
+    let rec loop number acc =
+        if number = 0 then acc
+        else
+            let digit = number % 10
+            let newAcc = if digit > 3 && digit % 2 <> 0 then acc + 1 else acc
+            loop (number / 10) newAcc
+    loop (abs n) 0
+
 [<EntryPoint>]
 let main argv =
     Console.Write("Input a number: ")
     let number = Console.ReadLine() |> int
 
     Console.WriteLine($"Sum of prime divisions of {number}: {sumPrimeDivisors number}")
+    Console.WriteLine($"Count of odd digits of {number} greater than 3: {countOddDigitsGreaterThanThree number}")
     0
