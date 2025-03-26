@@ -23,9 +23,13 @@ let rec sumOfDigitsDown number =
             sumDigitsDownLoop newNumber newSum
     sumDigitsDownLoop number 0
 
+let fibOrSumOfDigits flag =
+    match flag with
+        | true -> sumOfDigitsDown
+        | false -> fibonacciDown
+
 [<EntryPoint>]
 let main argv =
-    Console.WriteLine(fibonacciUp 15)
-    Console.WriteLine(fibonacciDown 15)
-    Console.WriteLine(sumOfDigitsDown 15)
+    Console.WriteLine(fibOrSumOfDigits false 15)
+    Console.WriteLine(fibOrSumOfDigits true 15)
     0
