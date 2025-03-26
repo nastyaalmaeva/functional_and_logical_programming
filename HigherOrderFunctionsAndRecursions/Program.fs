@@ -66,6 +66,21 @@ let askAboutFavouriteLangLanguageCurry () =
         printOutput response
     runLanguagePipeline Console.ReadLine favouriteProgrammingLanguage Console.WriteLine
 
+let rec GCD a b =
+    match b with
+    | 0 -> a
+    | _ -> GCD b (a % b)
+
+let traverseCoprimes target op initial =
+    let rec loop n op acc candidate =
+        if candidate <= 0 then acc
+        else
+            let newAcc = 
+                if GCD n candidate = 1 then op acc candidate
+                else acc
+            loop n op newAcc (candidate - 1)
+    loop target op initial target
+
 [<EntryPoint>]
 let main argv =
     askAboutFavouriteLangLanguageSuperposition ()
