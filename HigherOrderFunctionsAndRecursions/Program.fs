@@ -120,6 +120,19 @@ let countOddDigitsGreaterThanThree n =
             loop (number / 10) newAcc
     loop (abs n) 0
 
+let productSpecialDivisors n =
+    let targetSum = sumOfDigitsDown n
+    let rec loop divisor acc =
+        if divisor = 0 then acc
+        else
+            let newAcc = 
+                if n % divisor = 0 && sumOfDigitsDown divisor < targetSum then 
+                    acc * divisor
+                else
+                    acc
+            loop (divisor - 1) newAcc
+    if n = 0 then 0 else loop (abs n) 1
+
 [<EntryPoint>]
 let main argv =
     Console.Write("Input a number: ")
@@ -127,4 +140,5 @@ let main argv =
 
     Console.WriteLine($"Sum of prime divisions of {number}: {sumPrimeDivisors number}")
     Console.WriteLine($"Count of odd digits of {number} greater than 3: {countOddDigitsGreaterThanThree number}")
+    Console.WriteLine($"Product of divisors of number whose sum of digits is less than sum of digits of original number: {productSpecialDivisors number}")
     0
