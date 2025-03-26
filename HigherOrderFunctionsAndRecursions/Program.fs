@@ -98,16 +98,23 @@ let traverseCoprimesCondition number (func :int->int->int) (condition :int->bool
                 | _, _ -> traversal number func condition acc nextCandidate
     traversal number func condition initial number
 
+let isPrime n =
+    let rec check i =
+        i > n / 2 || (n % i <> 0 && check (i + 1))
+    if n < 2 then false else check 2
+
+let sumPrimeDivisors n =
+    let rec loop divisor acc =
+        if divisor > n / 2 then acc
+        else
+            let newAcc = if n % divisor = 0 && isPrime divisor then acc + divisor else acc
+            loop (divisor + 1) newAcc
+    if n < 2 then 0 else loop 2 0
+
 [<EntryPoint>]
 let main argv =
     Console.Write("Input a number: ")
     let number = Console.ReadLine() |> int
-    
-    Console.WriteLine($"Sum of mutually prime numbers with {number}: {traverseCoprimes number (+) 0}")
-    Console.WriteLine($"Mult of mutually prime numbers with {number}: {traverseCoprimes number (*) 1}")
-    Console.WriteLine($"Max of mutually prime numbers with {number}: {traverseCoprimes number (fun x y -> if x > y then x else y) 0}")
-    Console.WriteLine()
-    Console.WriteLine($"Euler function of {number}: {eulerFunction number}")
-    Console.WriteLine()
-    Console.WriteLine($"Mul of even mutually prime numbers with {number}: {traverseCoprimesCondition number (*) (fun x -> (x % 2) = 0) 1}")
+
+    Console.WriteLine($"Sum of prime divisions of {number}: {sumPrimeDivisors number}")
     0
