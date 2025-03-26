@@ -33,6 +33,17 @@ let rec numberTraversal num (func :int->int->int) acc =
         | 0 -> acc
         | n -> numberTraversal (n / 10) func (func acc (n % 10))
 
+let rec numberTraversalWithCondition num (func :int->int->int) acc (condition :int->bool) =
+    match num with
+        | 0 -> acc
+        | n -> 
+            let digit = n % 10
+            let nextNumber = n / 10
+            let flag = condition digit
+            match flag with
+                | false -> numberTraversalWithCondition nextNumber func acc condition
+                | true -> numberTraversalWithCondition nextNumber func (func acc digit) condition
+
 [<EntryPoint>]
 let main argv =
     Console.WriteLine($"Sum of digits: {fibOrSumOfDigits true 15}")
@@ -42,4 +53,4 @@ let main argv =
     Console.WriteLine($"Mul of digits of number: {numberTraversal 124 (fun x y -> (x * y)) 1}")
     Console.WriteLine($"Minimum digit of number: {numberTraversal 421 (fun x y -> if x > y then y else x) 10}")
     Console.WriteLine($"Maximum digit of number: {numberTraversal 421 (fun x y -> if x < y then y else x) -1}")
-    0
+    0   
