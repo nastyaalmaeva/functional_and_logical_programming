@@ -54,9 +54,21 @@ let favouriteProgrammingLanguage language =
         | "Java" -> "GOOD ONE"
         | _ -> "Don't know that one..."
 
+let askAboutFavouriteLangLanguageSuperposition () = 
+    Console.WriteLine("What is your favorite programming language?")
+    (Console.ReadLine >> favouriteProgrammingLanguage >> Console.WriteLine)()
+
+let askAboutFavouriteLangLanguageCurry () =
+    Console.WriteLine("What is your favorite programming language?")
+    let runLanguagePipeline getInput processLanguage printOutput = 
+        let language = getInput()
+        let response = processLanguage language
+        printOutput response
+    runLanguagePipeline Console.ReadLine favouriteProgrammingLanguage Console.WriteLine
+
 [<EntryPoint>]
 let main argv =
-    Console.WriteLine("What is your favorite programming language?")
-    let answer = Console.ReadLine() |> string
-    Console.WriteLine(favouriteProgrammingLanguage answer)
+    askAboutFavouriteLangLanguageSuperposition ()
+    Console.WriteLine()
+    askAboutFavouriteLangLanguageCurry ()
     0   
