@@ -73,17 +73,27 @@ let rec GCD a b =
 
 let traverseCoprimes target op initial =
     let rec loop n op acc candidate =
-        if candidate <= 0 then acc
-        else
+        match candidate with
+        | 0 -> acc
+        | _ ->
             let newAcc = 
                 if GCD n candidate = 1 then op acc candidate
                 else acc
             loop n op newAcc (candidate - 1)
     loop target op initial target
 
+let eulerFunction number =
+    traverseCoprimes number (fun x y -> x + 1) 0
+
 [<EntryPoint>]
 let main argv =
-    askAboutFavouriteLangLanguageSuperposition ()
+    Console.Write("Input a number: ")
+    let number = Console.ReadLine() |> int
+    
+    Console.WriteLine($"Sum of mutually prime numbers with {number}: {traverseCoprimes number (+) 0}")
+    Console.WriteLine($"Mult of mutually prime numbers with {number}: {traverseCoprimes number (*) 1}")
+    Console.WriteLine($"Max of mutually prime numbers with {number}: {traverseCoprimes number (fun x y -> if x > y then x else y) 0}")
+
     Console.WriteLine()
-    askAboutFavouriteLangLanguageCurry ()
-    0   
+    Console.WriteLine($"Euler function of {number}: {eulerFunction number}")
+    0
